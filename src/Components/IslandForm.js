@@ -1,14 +1,35 @@
-export default function IslandForm({ island }) {
-  return (
-    <div className="form">
-      <h2>{island.name}</h2>
-      <img src={island.img} alt={island.name} />
-      <h3>Book a trip to {island.name} island</h3>
-      <input placeholder="Type Full Name" />
-      <input placeholder="Type Phone Number" />
-      <button className="book" onClick={() => {}}>
-        Book for today!
-      </button>
-    </div>
-  );
+import { useState } from "react";
+import islands from "../data/islands";
+
+export default function IslandForm({ island, incCounter }) {
+	const [name, setName] = useState("");
+	const [phone, setPhone] = useState("");
+	const confirmBooking = () => {
+		if (
+			window.confirm(
+				`Are you sure you want to book to ${island.name} with the name: ${name}, and phone: ${phone}`
+			)
+		) {
+			incCounter();
+		}
+	};
+
+	const changeName = e => setName(e.target.value);
+	const changePhone = e => setPhone(e.target.value);
+	return (
+		<div className='form'>
+			<h2>{island.name}</h2>
+			<img src={island.img} alt={island.name} />
+			<h3>Book a trip to {island.name} island</h3>
+			<input placeholder='Type Full Name' onChange={changeName} />
+			<input
+				placeholder='Type Phone Number'
+				type='number'
+				onChange={changePhone}
+			/>
+			<button className='book' onClick={confirmBooking}>
+				Book for today!
+			</button>
+		</div>
+	);
 }
