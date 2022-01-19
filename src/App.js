@@ -3,26 +3,27 @@ import "./App.css";
 import Header from "./Components/Header";
 import IslandForm from "./Components/IslandForm";
 import IslandList from "./Components/IslandList";
-import islands from "./data/islands";
+import islandsData from "./data/islands";
 
 function App() {
+	const [islands, setIslands] = useState(islandsData);
+
 	const [island, setIsland] = useState(islands[0]);
 
-	const visitors = islands;
+	// const changeIsland = island => setIsland(island);
 
-	const [counter, setCounter] = useState(island.visitors);
-	const incCounter = () => {
-		setCounter(counter + 1);
+	const incVisitors = island => {
+		island.visitors++;
+		setIslands([...islands]);
 	};
 
-	console.log(island);
 	return (
 		<div>
 			<Header />
 
 			<div className='homePage'>
-				<IslandList setIsland={setIsland} counter={counter} />
-				<IslandForm island={island} incCounter={incCounter} />
+				<IslandList setIsland={setIsland} />
+				<IslandForm island={island} incVisitors={incVisitors} />
 			</div>
 		</div>
 	);
